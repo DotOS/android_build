@@ -4622,6 +4622,9 @@ ifneq (,$(INSTALLED_RECOVERYIMAGE_TARGET)$(filter true,$(BOARD_USES_RECOVERY_AS_
 	$(hide) mkdir -p $(zip_root)/$(PRIVATE_RECOVERY_OUT)
 	$(hide) $(call package_files-copy-root, \
 	    $(TARGET_RECOVERY_ROOT_OUT),$(zip_root)/$(PRIVATE_RECOVERY_OUT)/RAMDISK)
+	@# OTA install helpers
+	$(hide) $(call package_files-copy-root, \
+	    $(PRODUCT_OUT)/install,$(zip_root)/INSTALL)
 ifdef INSTALLED_KERNEL_TARGET
 	cp $(INSTALLED_KERNEL_TARGET) $(zip_root)/$(PRIVATE_RECOVERY_OUT)/
 endif
@@ -4760,6 +4763,7 @@ endif
 	$(hide) echo "$(PRODUCT_OTA_PUBLIC_KEYS)" > $(zip_root)/META/otakeys.txt
 	$(hide) cp $(SELINUX_FC) $(zip_root)/META/file_contexts.bin
 	$(hide) cp $(INSTALLED_MISC_INFO_TARGET) $(zip_root)/META/misc_info.txt
+	$(hide) echo "use_set_metadata=1" >> $(zip_root)/META/misc_info.txt
 ifneq ($(PRODUCT_SYSTEM_BASE_FS_PATH),)
 	$(hide) cp $(PRODUCT_SYSTEM_BASE_FS_PATH) \
 	  $(zip_root)/META/$(notdir $(PRODUCT_SYSTEM_BASE_FS_PATH))
