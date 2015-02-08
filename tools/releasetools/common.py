@@ -687,7 +687,6 @@ def UnzipTemp(filename, pattern=None):
 
   def unzip_to_dir(filename, dirname):
     subprocess.call(["rm", "-rf", dirname + filename, "targetfiles-*"])
-    cmd = ["rm", "-rf", dirname + filename, "targetfiles-*"]
     cmd = ["unzip", "-o", "-q", filename, "-d", dirname]
     if pattern is not None:
       cmd.append(pattern)
