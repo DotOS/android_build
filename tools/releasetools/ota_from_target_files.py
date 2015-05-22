@@ -822,6 +822,17 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
+
+  script.Print("    .___          __   ________     _________")
+  script.Print("  __| _/  ____  _/  |_ \_____  \   /   _____/")
+  script.Print(" / __ |  /  _ \ \   __\ /   |   \  \_____  \ ")
+  script.Print("/ /_/ | (  <_> ) |  |  /    |    \ /        \")
+  script.Print("\____ |  \____/  |__|  \_______  //_______  /")
+  script.Print("     \/      Droid On Time     \/         \/ ")
+  script.Print(" ")
+  script.Print("An Aosp Based ROm")
+  script.Print(" ")
+  script.AppendExtra("sleep (2);")
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
 
