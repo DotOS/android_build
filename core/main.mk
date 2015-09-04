@@ -1084,7 +1084,14 @@ clean:
 .PHONY: clobber
 clobber: clean
 
-# The rules for dataclean and installclean are defined in cleanbuild.mk.
+# Clears out zip and build.prop
+.PHONY: dirty
+dirty:
+	@rm -rf $(OUT_DIR)/target/product/*/system/build.prop
+	@rm -rf $(OUT_DIR)/target/product/*/*.zip
+	@rm -rf $(OUT_DIR)/target/product/*/*.md5sum
+	@rm -rf $(OUT_DIR)/target/product/*/ota_nougat.xml
+	@echo -e ${CL_GRN}"build.prop, ota and zip files erased"${CL_RST}
 
 #xxx scrape this from ALL_MODULE_NAME_TAGS
 .PHONY: modules
