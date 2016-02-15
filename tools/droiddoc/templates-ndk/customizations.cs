@@ -43,7 +43,7 @@ def:ndk_guides_nav() ?>
     <div class="col-3" id="side-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
       <div id="devdoc-nav" class="scroll-pane">
 <?cs
-        include:"../../../../frameworks/base/docs/html-ndk/ndk/guides/guides_toc.cs" ?>
+        include:"../../../../frameworks/base/docs/html/ndk/guides/guides_toc.cs" ?>
 
 
       </div>
@@ -62,7 +62,7 @@ def:ndk_reference_nav() ?>
     <div class="col-3" id="side-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
       <div id="devdoc-nav" class="scroll-pane">
 <?cs
-        include:"../../../../frameworks/base/docs/html-ndk/ndk/reference/reference_toc.cs" ?>
+        include:"../../../../frameworks/base/docs/html/ndk/reference/reference_toc.cs" ?>
 
 
       </div>
@@ -81,7 +81,7 @@ def:ndk_samples_nav() ?>
     <div class="col-3" id="side-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
       <div id="devdoc-nav" class="scroll-pane">
 <?cs
-        include:"../../../../frameworks/base/docs/html-ndk/ndk/samples/samples_toc.cs" ?>
+        include:"../../../../frameworks/base/docs/html/ndk/samples/samples_toc.cs" ?>
 
 
       </div>
@@ -100,7 +100,7 @@ def:ndk_downloads_nav() ?>
     <div class="col-3" id="side-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
       <div id="devdoc-nav" class="scroll-pane">
 <?cs
-        include:"../../../../frameworks/base/docs/html-ndk/ndk/downloads/downloads_toc.cs" ?>
+        include:"../../../../frameworks/base/docs/html/ndk/downloads/downloads_toc.cs" ?>
 
 
       </div>
