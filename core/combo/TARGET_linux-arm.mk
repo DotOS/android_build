@@ -36,10 +36,16 @@ endif
 # Decouple NDK library selection with platform compiler version
 $(combo_2nd_arch_prefix)TARGET_NDK_GCC_VERSION := 4.9
 
-ifeq ($(strip $(TARGET_GCC_VERSION_EXP)),)
-$(combo_2nd_arch_prefix)TARGET_GCC_VERSION := 4.9
+ifeq ($(strip $(TARGET_TC_ROM)),)
+$(combo_2nd_arch_prefix)TARGET_GCC_VERSION := 4.9-sm
 else
-$(combo_2nd_arch_prefix)TARGET_GCC_VERSION := $(TARGET_GCC_VERSION_EXP)
+$(combo_2nd_arch_prefix)TARGET_GCC_VERSION := $(TARGET_TC_ROM)
+endif
+
+ifeq ($(strip $(TARGET_TC_KERNEL)),)
+$(combo_2nd_arch_prefix)TARGET_KERNEL_GCC_VERSION := 4.9-sm
+else
+$(combo_2nd_arch_prefix)TARGET_KERNEL_GCC_VERSION := $(TARGET_TC_KERNEL)
 endif
 
 TARGET_ARCH_SPECIFIC_MAKEFILE := $(BUILD_COMBOS)/arch/$(TARGET_$(combo_2nd_arch_prefix)ARCH)/$(TARGET_$(combo_2nd_arch_prefix)ARCH_VARIANT).mk
