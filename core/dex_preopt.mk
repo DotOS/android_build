@@ -47,6 +47,7 @@ SYSTEM_OTHER_ODEX_FILTER ?= app/% priv-app/%
 #  WITH_DEXPREOPT ?= true
 # For an eng build only pre-opt the boot image. This gives reasonable performance and still
 # allows a simple workflow: building in frameworks/base and syncing.
+
 #  ifeq (eng,$(TARGET_BUILD_VARIANT))
 #    WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 #  endif
@@ -55,6 +56,11 @@ SYSTEM_OTHER_ODEX_FILTER ?= app/% priv-app/%
 #    PRODUCT_DEX_PREOPT_BOOT_FLAGS += --generate-mini-debug-info
 #  endif
 #endif
+
+# Add mini-debug-info to the boot classpath if explicitly asked to do so.
+  ifeq (true,$(WITH_DEXPREOPT_DEBUG_INFO))
+    PRODUCT_DEX_PREOPT_BOOT_FLAGS += --generate-mini-debug-info
+  endif
 
 GLOBAL_DEXPREOPT_FLAGS :=
 ifeq ($(WITH_DEXPREOPT_PIC),true)
