@@ -37,13 +37,13 @@ endif
 TARGET_NDK_GCC_VERSION := 4.9
 
 ifeq ($(strip $(TARGET_TC_ROM)),)
-$(combo_2nd_arch_prefix)TARGET_GCC_VERSION := 4.9-sm
+$(combo_2nd_arch_prefix)TARGET_GCC_VERSION := 4.9
 else
 $(combo_2nd_arch_prefix)TARGET_GCC_VERSION := $(TARGET_TC_ROM)
 endif
 
 ifeq ($(strip $(TARGET_TC_KERNEL)),)
-$(combo_2nd_arch_prefix)TARGET_KERNEL_GCC_VERSION := 4.9-sm
+$(combo_2nd_arch_prefix)TARGET_KERNEL_GCC_VERSION := 4.9
 else
 $(combo_2nd_arch_prefix)TARGET_KERNEL_GCC_VERSION := $(TARGET_TC_KERNEL)
 endif
