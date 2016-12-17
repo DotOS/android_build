@@ -921,6 +921,10 @@ ifneq ($(CM_BUILD),)
 ## last, to avoid accidental resetting by device configs
 $(eval include vendor/dot/sepolicy/sepolicy.mk)
 
+ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+$(eval include vendor/dot/sepolicy/qcom/sepolicy.mk)
+endif
+
 # Include any vendor specific config.mk file
 -include $(TOPDIR)vendor/*/build/core/config.mk
 
