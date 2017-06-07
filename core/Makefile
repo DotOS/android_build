@@ -860,8 +860,6 @@ $(if $(BOARD_SYSTEMIMAGE_SQUASHFS_COMPRESSOR_OPT),$(hide) echo "system_squashfs_
 $(if $(BOARD_SYSTEMIMAGE_SQUASHFS_BLOCK_SIZE),$(hide) echo "system_squashfs_block_size=$(BOARD_SYSTEMIMAGE_SQUASHFS_BLOCK_SIZE)" >> $(1))
 $(if $(BOARD_SYSTEMIMAGE_SQUASHFS_DISABLE_4K_ALIGN),$(hide) echo "system_squashfs_disable_4k_align=$(BOARD_SYSTEMIMAGE_SQUASHFS_DISABLE_4K_ALIGN)" >> $(1))
 $(if $(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SYSTEM_BASE_FS_PATH),$(hide) echo "system_base_fs_file=$(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SYSTEM_BASE_FS_PATH)" >> $(1))
-$(if $(BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE),$(hide) echo "cache_fs_type=$(BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE)" >> $(1))
-$(if $(BOARD_CACHEIMAGE_PARTITION_SIZE),$(hide) echo "cache_size=$(BOARD_CACHEIMAGE_PARTITION_SIZE)" >> $(1))
 $(if $(BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE),$(hide) echo "vendor_fs_type=$(BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE)" >> $(1))
 $(if $(BOARD_VENDORIMAGE_EXTFS_INODE_COUNT),$(hide) echo "vendor_extfs_inode_count=$(BOARD_VENDORIMAGE_EXTFS_INODE_COUNT)" >> $(1))
 $(if $(BOARD_VENDORIMAGE_PARTITION_SIZE),$(hide) echo "vendor_size=$(BOARD_VENDORIMAGE_PARTITION_SIZE)" >> $(1))
@@ -1477,42 +1475,6 @@ boottarball-nodeps btnod: $(FS_GET_STATS) \
 	$(build-boottarball-target)
 
 # -----------------------------------------------------------------
-# cache partition image
-ifdef BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE
-INTERNAL_CACHEIMAGE_FILES := \
-    $(filter $(TARGET_OUT_CACHE)/%,$(ALL_DEFAULT_INSTALLED_MODULES))
-
-cacheimage_intermediates := \
-    $(call intermediates-dir-for,PACKAGING,cache)
-BUILT_CACHEIMAGE_TARGET := $(PRODUCT_OUT)/cache.img
-
-define build-cacheimage-target
-  $(call pretty,"Target cache fs image: $(INSTALLED_CACHEIMAGE_TARGET)")
-  @mkdir -p $(TARGET_OUT_CACHE)
-  @mkdir -p $(cacheimage_intermediates) && rm -rf $(cacheimage_intermediates)/cache_image_info.txt
-  $(call generate-userimage-prop-dictionary, $(cacheimage_intermediates)/cache_image_info.txt, skip_fsck=true)
-  $(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH \
-      ./build/tools/releasetools/build_image.py \
-      $(TARGET_OUT_CACHE) $(cacheimage_intermediates)/cache_image_info.txt $(INSTALLED_CACHEIMAGE_TARGET) $(TARGET_OUT)
-  $(hide) $(call assert-max-image-size,$(INSTALLED_CACHEIMAGE_TARGET),$(BOARD_CACHEIMAGE_PARTITION_SIZE))
-endef
-
-# We just build this directly to the install location.
-INSTALLED_CACHEIMAGE_TARGET := $(BUILT_CACHEIMAGE_TARGET)
-$(INSTALLED_CACHEIMAGE_TARGET): $(INTERNAL_USERIMAGES_DEPS) $(INTERNAL_CACHEIMAGE_FILES)
-	$(build-cacheimage-target)
-
-.PHONY: cacheimage-nodeps
-cacheimage-nodeps: | $(INTERNAL_USERIMAGES_DEPS)
-	$(build-cacheimage-target)
-
-else # BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE
-# we need to ignore the broken cache link when doing the rsync
-IGNORE_CACHE_LINK := --exclude=cache
-endif # BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE
-
-
-# -----------------------------------------------------------------
 # system_other partition image
 ifeq ($(BOARD_USES_SYSTEM_OTHER_ODEX),true)
 BOARD_USES_SYSTEM_OTHER := true
@@ -1819,7 +1781,6 @@ $(BUILT_TARGET_FILES_PACKAGE): \
 		$(INSTALLED_RADIOIMAGE_TARGET) \
 		$(INSTALLED_RECOVERYIMAGE_TARGET) \
 		$(INSTALLED_SYSTEMIMAGE) \
-		$(INSTALLED_CACHEIMAGE_TARGET) \
 		$(INSTALLED_VENDORIMAGE_TARGET) \
 		$(INSTALLED_SYSTEMOTHERIMAGE_TARGET) \
 		$(INSTALLED_OEMIMAGE_TARGET) \
