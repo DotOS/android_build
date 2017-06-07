@@ -235,48 +235,6 @@ def CreateImage(input_dir, info_dict, what, block_list=None):
 
   return img
 
-def AddCache(output_zip, prefix="IMAGES/"):
-  """Create an empty cache image and store it in output_zip."""
-
-  prebuilt_path = os.path.join(OPTIONS.input_tmp, prefix, "cache.img")
-  if os.path.exists(prebuilt_path):
-    print "cache.img already exists in %s, no need to rebuild..." % (prefix,)
-    return
-
-  image_props = build_image.ImagePropFromGlobalDict(OPTIONS.info_dict, "cache")
-  # The build system has to explicitly request for cache.img.
-  if "fs_type" not in image_props:
-    return
-
-  print "creating cache.img..."
-
-  # Use a fixed timestamp (01/01/2009) when packaging the image.
-  # Bug: 24377993
-  epoch = datetime.datetime.fromtimestamp(0)
-  timestamp = (datetime.datetime(2009, 1, 1) - epoch).total_seconds()
-  image_props["timestamp"] = int(timestamp)
-
-  # The name of the directory it is making an image out of matters to
-  # mkyaffs2image.  So we create a temp dir, and within it we create an
-  # empty dir named "cache", and build the image from that.
-  temp_dir = tempfile.mkdtemp()
-  user_dir = os.path.join(temp_dir, "cache")
-  os.mkdir(user_dir)
-  img = tempfile.NamedTemporaryFile()
-
-  fstab = OPTIONS.info_dict["fstab"]
-  if fstab:
-    image_props["fs_type"] = fstab["/cache"].fs_type
-  succ = build_image.BuildImage(user_dir, image_props, img.name)
-  assert succ, "build cache.img image failed"
-
-  common.CheckSize(img.name, "cache.img", OPTIONS.info_dict)
-  common.ZipWrite(output_zip, img.name, prefix + "cache.img")
-  img.close()
-  os.rmdir(user_dir)
-  os.rmdir(temp_dir)
-
-
 def AddImagesToTargetFiles(filename):
   OPTIONS.input_tmp, input_zip = common.UnzipTemp(filename)
 
@@ -361,9 +319,6 @@ def AddImagesToTargetFiles(filename):
   if has_system_other:
     banner("system_other")
     AddSystemOther(output_zip)
-  if not OPTIONS.is_signing:
-    banner("cache")
-    AddCache(output_zip)
   if has_oem:
     banner("oem")
     AddOem(output_zip)
