@@ -548,7 +548,18 @@ function print_lunch_menu()
     local uname=$(uname)
     echo
     echo "You're building on" $uname
+  tput setaf 3
     echo
+    echo "           ·▄▄▄▄        ▄▄▄▄▄          .▄▄ · "
+    echo "           ██▪ ██ ▪     •██      ▪     ▐█ ▀. "
+    echo "           ▐█· ▐█▌ ▄█▀▄  ▐█.▪     ▄█▀▄ ▄▀▀▀█▄"
+    echo "           ██. ██ ▐█▌.▐▌ ▐█▌·    ▐█▌.▐▌▐█▄▪▐█"
+    echo "           ▀▀▀▀▀•  ▀█▄▀▪ ▀▀▀      ▀█▄▀▪ ▀▀▀▀ "
+    echo "                     Droid On Time            "
+      tput sgr0;
+    echo ""
+    echo "              Welcome to the device menu           "
+    echo ""
     if [ "z${CM_DEVICES_ONLY}" != "z" ]; then
        echo "Breakfast menu... pick a combo:"
     else
