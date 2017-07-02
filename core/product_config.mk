@@ -179,12 +179,12 @@ include $(BUILD_SYSTEM)/node_fns.mk
 include $(BUILD_SYSTEM)/product.mk
 include $(BUILD_SYSTEM)/device.mk
 
-# A CM build needs only the CM product makefiles.
+# A DOT build needs only the DOT product makefiles.
 ifneq ($(CM_BUILD),)
-  all_product_configs := $(shell find device -path "*/$(CM_BUILD)/lineage.mk")
+  all_product_configs := $(shell find device -path "*/$(CM_BUILD)/dot.mk")
   ifeq ($(all_product_configs),)
-    # Fall back to cm.mk
-    all_product_configs := $(shell find device -path "*/$(CM_BUILD)/cm.mk")
+    # Fall back to lineage.mk
+    all_product_configs := $(shell find device -path "*/$(CM_BUILD)/lineage.mk")
   endif
 else
   ifneq ($(strip $(TARGET_BUILD_APPS)),)
