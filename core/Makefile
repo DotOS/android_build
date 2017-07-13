@@ -2295,6 +2295,7 @@ ifeq ($(DOT_CHANGELOG),true)
 # Generate dotOS Changelog
 	$(hide) ./vendor/dot/tools/changelog
 	$(hide) mv $(PRODUCT_OUT)/Changelog.txt $(PRODUCT_OUT)/Changelog-$(DOT_VERSION).txt
+        $(hide) cp $(PRODUCT_OUT)/Changelog-$(DOT_VERSION).txt $(PRODUCT_OUT)/system/etc/Changelog.txt
 endif
 
 # -----------------------------------------------------------------
