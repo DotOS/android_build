@@ -2245,21 +2245,18 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 	   -k $(KEY_CERT_PAIR) \
 	   --backup=$(backuptool) \
 	   $(sign_arg) \
-	   --override_device=$(override_device) $(override_prop) \
-
-	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(DOT_VERSION).zip
+DOT_TARGET_PACKAGE := $(PRODUCT_OUT)/$(DOT_VERSION).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(CM_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(CM_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(CM_TARGET_PACKAGE).md5sum
-	@echo "Package Complete: $(CM_TARGET_PACKAGE)" >&2
-    @echo -e ${CL_CYN}"DOT.zip file size MD5 :"${CL_MAG}" `cat $(CM_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST}
-	@echo -e ${CL_CYN}"DOT.zip file size in MB :"${CL_MAG}" `ls -lah $(CM_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST}
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(DOT_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(DOT_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(DOT_TARGET_PACKAGE).md5sum
+	@echo "Package Complete: $(DOT_TARGET_PACKAGE)" >&2
+    @echo -e ${CL_CYN}"DOT.zip file size MD5 :"${CL_MAG}" `cat $(DOT_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST}
+	@echo -e ${CL_CYN}"DOT.zip file size in MB :"${CL_MAG}" `ls -lah $(DOT_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST}
 
 endif    # build_ota_package
 # -----------------------------------------------------------------
