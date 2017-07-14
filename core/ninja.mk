@@ -63,6 +63,7 @@ PARSE_TIME_MAKE_GOALS := \
 	target-files-package \
 	test-art% \
 	user \
+	userdataimage \
 	userdebug \
 	valgrind-test-art% \
 	vts \
