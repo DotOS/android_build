@@ -2132,7 +2132,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 	   --backup=$(backuptool) \
 	   $(sign_arg) \
 	   --override_device=$(override_device) $(override_prop) \
->>>>>>> 730d056c6... core: assume non-release recoveries to skip signature check
+
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
