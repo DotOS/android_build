@@ -2123,6 +2123,8 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 
 DOT_TARGET_PACKAGE := $(PRODUCT_OUT)/$(DOT_VERSION).zip
 
+ZIP_LOCATION := /out/target/product/$(TARGET_PRODUCT)/$(DOT_VERSION).zip
+
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
@@ -2134,8 +2136,13 @@ bacon: otapackage
 	echo -e ${CL_CYN}"▐█· ▐█▌ ▄█▀▄  ▐█.▪     ▄█▀▄ ▄▀▀▀█▄"${CL_RST}
 	echo -e ${CL_CYN}"██. ██ ▐█▌.▐▌ ▐█▌·    ▐█▌.▐▌▐█▄▪▐█"${CL_RST}
 	echo -e ${CL_CYN}"▀▀▀▀▀•  ▀█▄▀▪ ▀▀▀      ▀█▄▀▪ ▀▀▀▀ "${CL_RST}
-    @echo -e ${CL_CYN}"DOT.zip file size MD5 :"${CL_MAG}" `cat $(DOT_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST}
-	@echo -e ${CL_CYN}"DOT.zip file size in MB :"${CL_MAG}" `ls -lah $(DOT_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST}
+	@echo -e ""
+	@echo -e "        	   Droid   On   Time        "
+	@echo -e ""
+	@echo -e "ZIP: $(ZIP_LOCATION)"
+	@echo -e "SIZE: "`ls -hal $(DOT_TARGET_PACKAGE) | cut -d ' ' -f 5`
+	@echo -e "MD5: "`cat $(DOT_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`
+	@echo -e ${CL_RST}
 
 endif    # build_ota_package
 # -----------------------------------------------------------------
