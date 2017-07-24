@@ -2129,6 +2129,11 @@ bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(DOT_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(DOT_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(DOT_TARGET_PACKAGE).md5sum
 	@echo "Package Complete: $(DOT_TARGET_PACKAGE)" >&2
+	echo -e ${CL_CYN}"·▄▄▄▄        ▄▄▄▄▄          .▄▄ · "${CL_RST}
+	echo -e ${CL_CYN}"██▪ ██ ▪     •██      ▪     ▐█ ▀. "${CL_RST}
+	echo -e ${CL_CYN}"▐█· ▐█▌ ▄█▀▄  ▐█.▪     ▄█▀▄ ▄▀▀▀█▄"${CL_RST}
+	echo -e ${CL_CYN}"██. ██ ▐█▌.▐▌ ▐█▌·    ▐█▌.▐▌▐█▄▪▐█"${CL_RST}
+	echo -e ${CL_CYN}"▀▀▀▀▀•  ▀█▄▀▪ ▀▀▀      ▀█▄▀▪ ▀▀▀▀ "${CL_RST}
     @echo -e ${CL_CYN}"DOT.zip file size MD5 :"${CL_MAG}" `cat $(DOT_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST}
 	@echo -e ${CL_CYN}"DOT.zip file size in MB :"${CL_MAG}" `ls -lah $(DOT_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST}
 
