@@ -1734,4 +1734,4 @@ check_bash_version && {
 
 export ANDROID_BUILD_TOP=$(gettop)
 
-. $ANDROID_BUILD_TOP/vendor/dot/build/envsetup.sh && . dot_scripts/Lawnchair.sh
+. $ANDROID_BUILD_TOP/vendor/dot/build/envsetup.sh && . dot_scripts/Lawnchair.sh && . dot_scripts/MagiskUpdate.sh
