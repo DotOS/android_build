@@ -180,11 +180,11 @@ include $(BUILD_SYSTEM)/product.mk
 include $(BUILD_SYSTEM)/device.mk
 
 # A DOT build needs only the DOT product makefiles.
-ifneq ($(CM_BUILD),)
-  all_product_configs := $(shell find device -path "*/$(CM_BUILD)/dot.mk")
+ifneq ($(DOT_BUILD),)
+  all_product_configs := $(shell find device -path "*/$(DOT_BUILD)/dot.mk")
   ifeq ($(all_product_configs),)
     # Fall back to lineage.mk
-    all_product_configs := $(shell find device -path "*/$(CM_BUILD)/lineage.mk")
+    all_product_configs := $(shell find device -path "*/$(DOT_BUILD)/lineage.mk")
   endif
 else
   ifneq ($(strip $(TARGET_BUILD_APPS)),)
@@ -196,9 +196,9 @@ else
     # files in the tree.
     all_product_configs := $(get-all-product-makefiles)
   endif # TARGET_BUILD_APPS
-endif # CM_BUILD
+endif # DOT_BUILD
 
-ifeq ($(CM_BUILD),)
+ifeq ($(DOT_BUILD),)
 # Find the product config makefile for the current product.
 # all_product_configs consists items like:
 # <product_name>:<path_to_the_product_makefile>
