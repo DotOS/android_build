@@ -2,7 +2,7 @@
 
 # Copyright (C) 2013 Cybojenix <anthonydking@gmail.com>
 # Copyright (C) 2013 The OmniROM Project
-# Copyright (C) 2015 dotOS Project
+# Copyright (C) 2017 dotOS Project
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ default_team_rem = "github"
 # this shouldn't change unless google makes changes
 local_manifest_dir = ".repo/local_manifests"
 # change this to your name on github (or equivalent hosting)
-android_team = "DotOS-Devices"
+android_team = "dotOS-Devices"
 
 
 def check_repo_exists(git_data):

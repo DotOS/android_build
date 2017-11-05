@@ -535,32 +535,29 @@ function add_lunch_combo()
     LUNCH_MENU_CHOICES=(${LUNCH_MENU_CHOICES[@]} $new_combo)
 }
 
-# add the default one here
-add_lunch_combo aosp_arm-eng
-add_lunch_combo aosp_arm64-eng
-add_lunch_combo aosp_mips-eng
-add_lunch_combo aosp_mips64-eng
-add_lunch_combo aosp_x86-eng
-add_lunch_combo aosp_x86_64-eng
-
-function print_lunch_menu()
+function print_dot_ascii()
 {
-    local uname=$(uname)
-    echo
-    echo "You're building on" $uname
-  tput setaf 3
-    echo
+    echo ""
+    tput setaf 3;
     echo "           ·▄▄▄▄        ▄▄▄▄▄          .▄▄ · "
     echo "           ██▪ ██ ▪     •██      ▪     ▐█ ▀. "
     echo "           ▐█· ▐█▌ ▄█▀▄  ▐█.▪     ▄█▀▄ ▄▀▀▀█▄"
     echo "           ██. ██ ▐█▌.▐▌ ▐█▌·    ▐█▌.▐▌▐█▄▪▐█"
     echo "           ▀▀▀▀▀•  ▀█▄▀▪ ▀▀▀      ▀█▄▀▪ ▀▀▀▀ "
     echo "                     Droid On Time            "
-      tput sgr0;
     echo ""
+    tput sgr 0;
     echo "              Welcome to the device menu           "
     echo ""
-    if [ "z${CM_DEVICES_ONLY}" != "z" ]; then
+}
+
+function print_lunch_menu()
+{
+    local uname=$(uname)
+    print_dot_ascii
+    echo
+    echo "You're building on" $uname
+    if [ "z${DOT_DEVICES_ONLY}" != "z" ]; then
        echo "Breakfast menu... pick a combo:"
     else
        echo "Lunch menu... pick a combo:"
@@ -574,7 +571,7 @@ function print_lunch_menu()
         i=$(($i+1))
     done | column
 
-    if [ "z${CM_DEVICES_ONLY}" != "z" ]; then
+    if [ "z${DOT_DEVICES_ONLY}" != "z" ]; then
        echo "... and don't forget the bacon!"
     fi
 
@@ -633,16 +630,16 @@ function lunch()
     check_product $product
     if [ $? -ne 0 ]
     then
-        # if we can't find a product, try to grab it off the CM github
+        # if we can't find a product, try to grab it off the dot-devices github
         T=$(gettop)
         cd $T > /dev/null
-        vendor/dot/build/tools/roomservice.py $product
+        build/tools/roomservice.py $product
         cd - > /dev/null
         check_product $product
     else
         T=$(gettop)
         cd $T > /dev/null
-        vendor/dot/build/tools/roomservice.py $product true
+        build/tools/roomservice.py $product true
         cd - > /dev/null
     fi
     TARGET_PRODUCT=$product \
