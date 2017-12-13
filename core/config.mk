@@ -488,7 +488,7 @@ AAPT := $(HOST_OUT_EXECUTABLES)/aapt
 AAPT2 := $(HOST_OUT_EXECUTABLES)/aapt2
 ZIPALIGN := $(HOST_OUT_EXECUTABLES)/zipalign
 SIGNAPK_JAR := $(HOST_OUT_JAVA_LIBRARIES)/signapk$(COMMON_JAVA_PACKAGE_SUFFIX)
-export SIGNAPK_JNI_LIBRARY_PATH := $(HOST_OUT_SHARED_LIBRARIES)
+SIGNAPK_JNI_LIBRARY_PATH := $(HOST_OUT_SHARED_LIBRARIES)
 LLVM_RS_CC := $(HOST_OUT_EXECUTABLES)/llvm-rs-cc
 BCC_COMPAT := $(HOST_OUT_EXECUTABLES)/bcc_compat
 
@@ -518,7 +518,7 @@ AAPT2 := $(prebuilt_sdk_tools_bin)/aapt2
 ZIPALIGN := $(prebuilt_sdk_tools_bin)/zipalign
 SIGNAPK_JAR := $(prebuilt_sdk_tools)/lib/signapk$(COMMON_JAVA_PACKAGE_SUFFIX)
 # Use 64-bit libraries unconditionally because 32-bit JVMs are no longer supported
-export SIGNAPK_JNI_LIBRARY_PATH := $(prebuilt_sdk_tools)/$(HOST_OS)/lib64
+SIGNAPK_JNI_LIBRARY_PATH := $(prebuilt_sdk_tools)/$(HOST_OS)/lib64
 
 DX := $(prebuilt_sdk_tools)/dx
 MAINDEXCLASSES := $(prebuilt_sdk_tools)/mainDexClasses
