@@ -1239,6 +1239,11 @@ FULL_SYSTEMIMAGE_DEPS := $(INTERNAL_SYSTEMIMAGE_FILES) $(INTERNAL_USERIMAGES_DEP
 # system image.
 INSTALLED_FILES_FILE := $(PRODUCT_OUT)/installed-files.txt
 $(INSTALLED_FILES_FILE): $(FULL_SYSTEMIMAGE_DEPS)
+
+# Generate changelog
+	@echo -e ${CL_GRN}"Generating Changelog"${CL_RST}
+	$(hide) ./vendor/dot/tools/changelog
+
 	@echo Installed file list: $@
 	@mkdir -p $(dir $@)
 	@rm -f $@
@@ -2165,14 +2170,6 @@ $(INTERNAL_FACTORY_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 
 .PHONY: factorypackage
 factorypackage: $(INTERNAL_FACTORY_PACKAGE_TARGET)
-
-systemimage-changelog: $(INTERNAL_SYSTEMIMAGE_FILES)
-	@echo "Generating changelog..."
-	$(hide) APKCERTS=$(APKCERTS_FILE) ./vendor/dot/tools/changelog
-
-.PHONY: systemimage-changelog
-
-FULL_SYSTEMIMAGE_DEPS := $(INTERNAL_SYSTEMIMAGE_FILES) $(INTERNAL_USERIMAGES_DEPS) systemimage-changelog
 
 # -----------------------------------------------------------------
 # The update package
