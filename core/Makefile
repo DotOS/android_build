@@ -2140,9 +2140,10 @@ bacon: otapackage
 	@echo -e "SIZE: "`ls -hal $(DOT_TARGET_PACKAGE) | cut -d ' ' -f 5`
 	@echo -e "MD5: "`cat $(DOT_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`
 	@echo -e ${CL_RST}
-	ifeq ($(DOT_WEEKLY), true)
-	$(hide) ./vendor/dot/tools/ota_gen.sh
-	endif
+
+ifeq ($(DOT_WEEKLY),true)
+$(hide) ./vendor/dot/tools/ota_gen.sh
+endif
 
 endif    # build_ota_package
 # -----------------------------------------------------------------
