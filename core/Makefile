@@ -2142,7 +2142,7 @@ bacon: otapackage
 	@echo -e ${CL_RST}
 
 ifeq ($(DOT_WEEKLY),true)
-	$(hide) ./vendor/dot/tools/ota_gen.sh
+	$(hide) ./vendor/dot/tools/otagen
 endif
 
 endif    # build_ota_package
