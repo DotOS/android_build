@@ -2141,10 +2141,6 @@ bacon: otapackage
 	@echo -e "MD5: "`cat $(DOT_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`
 	@echo -e ${CL_RST}
 
-ifeq ($(DOT_WEEKLY),true)
-	$(hide) ./vendor/dot/tools/otagen
-endif
-
 endif    # build_ota_package
 # -----------------------------------------------------------------
 # The factory package
