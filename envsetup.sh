@@ -684,6 +684,8 @@ function lunch()
     export TARGET_PRODUCT=$product
     export TARGET_BUILD_VARIANT=$variant
     export TARGET_BUILD_TYPE=release
+    
+    export DOT_VERSION=$(get_build_var DOT_VERSION)
 
     echo
 
