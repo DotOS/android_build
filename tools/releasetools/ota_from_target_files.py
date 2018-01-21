@@ -826,7 +826,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("    .___          __   ________     _________")
   script.Print("  __| _/  ____  _/  |_ \_____  \   /   _____/")
   script.Print(" / __ |  /  _ \ \   __\ /   |   \  \_____  \ ")
-  script.Print("/ /_/ | (  <_> ) |  |  /    |    \ /        \")
+  script.Print("/ /_/ | (  <_> ) |  |  /    |    \ /        \ ")
   script.Print("\____ |  \____/  |__|  \_______  //_______  /")
   script.Print("     \/      Droid On Time     \/         \/ ")
   script.Print(" ")
