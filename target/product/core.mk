@@ -50,6 +50,8 @@ PRODUCT_PACKAGES += \
     ProxyHandler \
     QuickSearchBox \
     Settings \
+    DuiDarkTheme \
+    DuiBlackTheme \
     SharedStorageBackup \
     StorageManager \
     Telecom \
