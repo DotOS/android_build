@@ -3,27 +3,10 @@
 #
 ####################################
 
-# Filter out duplicates
-define uniq__dx
-  $(eval seen :=)
-  $(foreach _,$1,$(if $(filter $_,${seen}),,$(eval seen += $_)))
-  ${seen}
-endef
-
-PRODUCT_BOOT_JARS := $(call uniq__dx,$(subst $(space), ,$(strip $(PRODUCT_BOOT_JARS))))
-PRODUCT_BOOT_JARS_NOPREOPT := $(call uniq__dx,$(subst $(space), ,$(strip $(PRODUCT_BOOT_JARS_NOPREOPT))))
-
-# Filter out non-preopt boot jars out of preoptable boot jars
-# this is to prevent further duplicates, as well, as strictly
-# enforcing the non-preopt rule here: non-preop boot jars are
-# not allowed to stay in normal boot jars so remove them here
-PRODUCT_BOOT_JARS := $(filter-out $(PRODUCT_BOOT_JARS_NOPREOPT),$(PRODUCT_BOOT_JARS))
-
 # list of boot classpath jars for dexpreopt
 DEXPREOPT_BOOT_JARS := $(subst $(space),:,$(PRODUCT_BOOT_JARS))
 DEXPREOPT_BOOT_JARS_MODULES := $(PRODUCT_BOOT_JARS)
-DEXPREOPT_BOOT_JARS_CLASSPATH := $(PRODUCT_BOOT_JARS) $(PRODUCT_BOOT_JARS_NOPREOPT)
-PRODUCT_BOOTCLASSPATH := $(subst $(space),:,$(foreach m,$(DEXPREOPT_BOOT_JARS_CLASSPATH),/system/framework/$(m).jar))
+PRODUCT_BOOTCLASSPATH := $(subst $(space),:,$(foreach m,$(DEXPREOPT_BOOT_JARS_MODULES),/system/framework/$(m).jar))
 
 PRODUCT_SYSTEM_SERVER_CLASSPATH := $(subst $(space),:,$(foreach m,$(PRODUCT_SYSTEM_SERVER_JARS),/system/framework/$(m).jar))
 
@@ -40,16 +23,17 @@ DEX_PREOPT_DEFAULT ?= true
 # being used). To bundle everything one should set this to '%'
 SYSTEM_OTHER_ODEX_FILTER ?= app/% priv-app/%
 
+# Method returning whether the install path $(1) should be for system_other.
+install-on-system-other = $(filter-out $(PRODUCT_DEXPREOPT_SPEED_APPS) $(PRODUCT_SYSTEM_SERVER_APPS),$(basename $(notdir $(filter $(foreach f,$(SYSTEM_OTHER_ODEX_FILTER),$(TARGET_OUT)/$(f)),$(1)))))
+
 # The default values for pre-opting: always preopt PIC.
 # Conditional to building on linux, as dex2oat currently does not work on darwin.
 #ifeq ($(HOST_OS),linux)
-#  WITH_DEXPREOPT_PIC ?= true
 #  WITH_DEXPREOPT ?= true
-# For an eng build only pre-opt the boot image. This gives reasonable performance and still
-# allows a simple workflow: building in frameworks/base and syncing.
-
+# For an eng build only pre-opt the boot image and system server. This gives reasonable performance
+# and still allows a simple workflow: building in frameworks/base and syncing.
 #  ifeq (eng,$(TARGET_BUILD_VARIANT))
-#    WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
+#    WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 #  endif
 # Add mini-debug-info to the boot classpath unless explicitly asked not to.
 #  ifneq (false,$(WITH_DEXPREOPT_DEBUG_INFO))
@@ -57,16 +41,7 @@ SYSTEM_OTHER_ODEX_FILTER ?= app/% priv-app/%
 #  endif
 #endif
 
-# Add mini-debug-info to the boot classpath if explicitly asked to do so.
-  ifeq (true,$(WITH_DEXPREOPT_DEBUG_INFO))
-    PRODUCT_DEX_PREOPT_BOOT_FLAGS += --generate-mini-debug-info
-  endif
-
 GLOBAL_DEXPREOPT_FLAGS :=
-ifeq ($(WITH_DEXPREOPT_PIC),true)
-# Compile boot.oat as position-independent code if WITH_DEXPREOPT_PIC=true
-GLOBAL_DEXPREOPT_FLAGS += --compile-pic
-endif
 
 # $(1): the .jar or .apk to remove classes.dex
 define dexpreopt-remove-classes.dex
@@ -84,7 +59,7 @@ define _dexpreopt-boot-jar-remove-classes.dex
 _dbj_jar_no_dex := $(DEXPREOPT_BOOT_JAR_DIR_FULL_PATH)/$(1)_nodex.jar
 _dbj_src_jar := $(call intermediates-dir-for,JAVA_LIBRARIES,$(1),,COMMON)/javalib.jar
 
-$$(_dbj_jar_no_dex) : $$(_dbj_src_jar) | $(ACP)
+$$(_dbj_jar_no_dex) : $$(_dbj_src_jar)
 	$$(call copy-file-to-target)
 ifneq ($(DEX_PREOPT_DEFAULT),nostripping)
 	$$(call dexpreopt-remove-classes.dex,$$@)
