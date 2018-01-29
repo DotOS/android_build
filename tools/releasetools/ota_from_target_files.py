@@ -483,16 +483,16 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: %s" % target_fp)
 
-
-  script.Print("    .___          __   ________     _________")
-  script.Print("  __| _/  ____  _/  |_ \_____  \   /   _____/")
-  script.Print(" / __ |  /  _ \ \   __\ /   |   \  \_____  \ ")
-  script.Print("/ /_/ | (  <_> ) |  |  /    |    \ /        \ ")
-  script.Print("\____ |  \____/  |__|  \_______  //_______  /")
-  script.Print("     \/      Droid On Time     \/         \/ ")
-  script.Print(" ")
-  script.Print("An Aosp Based ROm")
-  script.Print(" ")
+  script.Print("***********************************************")
+  script.Print("*    .___          __   ________     _________*")
+  script.Print("*  __| _/  ____  _/  |_ \_____  \   /   _____/*")
+  script.Print("* / __ |  /  _ \ \   __\ /   |   \  \_____  \ *")
+  script.Print("*/ /_/ | (  <_> ) |  |  /    |    \ /        \*")
+  script.Print("*\____ |  \____/  |__|  \_______  //_______  /*")
+  script.Print("*     \/   ***Droid On Time***  \/         \/ *")
+  script.Print("***********************************************")
+  script.Print("***********|*Based On Pure Aosp*|**************")
+  script.Print("***********************************************")
   script.AppendExtra("sleep (2);")
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
@@ -511,13 +511,13 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   system_progress = 0.75
 
-  if GetBuildProp("ro.extended.display.version", OPTIONS.info_dict) is not None:
-    buildid = GetBuildProp("ro.extended.display.version", OPTIONS.info_dict)
+  if GetBuildProp("ro.dot.version", OPTIONS.info_dict) is not None:
+    buildid = GetBuildProp("ro.dot.version", OPTIONS.info_dict)
     buildidn = GetBuildProp("ro.build.id", OPTIONS.info_dict)
     buildday = GetBuildProp("ro.build.date", OPTIONS.info_dict)
     securep = GetBuildProp("ro.build.version.security_patch", OPTIONS.info_dict)
     density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict,False)
-    device = GetBuildProp("ro.aex.device", OPTIONS.info_dict)
+    device = GetBuildProp("ro.product.device", OPTIONS.info_dict)
     androidver = GetBuildProp("ro.build.version.release", OPTIONS.info_dict)
     manufacturer = GetBuildProp("ro.product.manufacturer", OPTIONS.info_dict)
     sdkver = GetBuildProp("ro.build.version.sdk", OPTIONS.info_dict)
