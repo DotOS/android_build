@@ -4998,7 +4998,12 @@ otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(TARGET_PACKAGE) > $(TARGET_PACKAGE).md5sum
-	@echo -e ${CL_RST} ""           
+	echo -e ${CL_RED}"✄▒█▀▀▄ ▒█▀▀▀█ ▀▀█▀▀ 　 ▒█▀▀▀█ ▒█▀▀▀█ "${CL_RED}
+	echo -e ${CL_CYN}"✄▒█░▒█ ▒█░░▒█ ░▒█░░ 　 ▒█░░▒█ ░▀▀▀▄▄ "${CL_RST}
+	echo -e ${CL_RED}"✄▒█▄▄▀ ▒█▄▄▄█ ░▒█░░ 　 ▒█▄▄▄█ ▒█▄▄▄█ "${CL_RED}
+	@echo -e ""
+	@echo -e "         Droid   On   Time       "
+	@echo -e ""
 	@echo -e ${CL_YLW} " Grab Some Cookies and Flash!!" ${CL_YLW}
 	@echo -e ${CL_BLD}${CL_RED}"===============================-Package complete-==============================="${CL_RED}
 	@echo -e ${CL_BLD}${CL_YLW}"Zip: "${CL_YLW} $(TARGET_PACKAGE)${CL_RST}
