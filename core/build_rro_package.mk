@@ -18,7 +18,11 @@ endif
 ifeq ($(LOCAL_RRO_THEME),)
   LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/overlay
 else
-  LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/overlay/$(LOCAL_RRO_THEME)
+  ifeq ($(strip $(TARGET_RRO_OUT_SYSTEM)),true)
+    LOCAL_MODULE_PATH := $(TARGET_OUT)/overlay/$(LOCAL_RRO_THEME)
+  else
+    LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/overlay/$(LOCAL_RRO_THEME)
+endif
 endif
 
 include $(BUILD_SYSTEM)/package.mk
