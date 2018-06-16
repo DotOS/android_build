@@ -16,13 +16,9 @@ ifneq ($(LOCAL_SRC_FILES),)
 endif
 
 ifeq ($(LOCAL_RRO_THEME),)
-  LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/overlay
+  LOCAL_MODULE_PATH := $(TARGET_OUT_APPS)
 else
-  ifeq ($(strip $(TARGET_RRO_OUT_SYSTEM)),true)
-    LOCAL_MODULE_PATH := $(TARGET_OUT)/overlay/$(LOCAL_RRO_THEME)
-  else
-    LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/overlay/$(LOCAL_RRO_THEME)
-endif
+  LOCAL_MODULE_PATH := $(TARGET_OUT_APPS)/$(LOCAL_RRO_THEME)
 endif
 
 include $(BUILD_SYSTEM)/package.mk
