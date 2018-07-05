@@ -45,6 +45,8 @@ PRODUCT_PACKAGES := \
 	sqlite3 \
 	SystemUI \
 	SysuiDarkThemeOverlay \
+        SystemNeoThemeOverlay \
+        SystemUINeoThemeOverlay \
 	EasterEgg \
 	WallpaperPicker \
 	WidgetPreview
