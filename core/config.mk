@@ -1113,9 +1113,6 @@ endif
 
 # Rules for MTK targets
 -include $(TOPDIR)vendor/dot/build/core/mtk_target.mk
-
-# Include BoardConfigDot from vendor
-include vendor/dot/config/BoardConfigDot.mk
 endif
 
 include $(BUILD_SYSTEM)/dumpvar.mk
