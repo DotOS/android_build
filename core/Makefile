@@ -5009,6 +5009,7 @@ bacon: otapackage
 	@echo -e ${CL_BLD}${CL_YLW}"Zip: "${CL_YLW} $(TARGET_PACKAGE)${CL_RST}
 	@echo -e ${CL_BLD}${CL_YLW}"MD5: "${CL_YLW}" `cat $(TARGET_PACKAGE).md5sum | awk '{print $$1}' `"${CL_RST}
 	@echo -e ${CL_BLD}${CL_YLW}"Size:"${CL_YLW}" `du -sh $(TARGET_PACKAGE) | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"Integer Value:"${CL_YLW}" `wc -c $(TARGET_PACKAGE) | awk '{print $$1}' `"${CL_RST}
 	@echo -e ${CL_BLD}${CL_RED}"================================================================================"${CL_RED}
 
 ifeq ($(BOARD_BUILD_RETROFIT_DYNAMIC_PARTITIONS_OTA_PACKAGE),true)
