@@ -1447,7 +1447,7 @@ RECOVERYIMAGE_ID_FILE := $(PRODUCT_OUT)/recovery.id
 # $(1): output file
 define build-recoveryimage-target
   $(hide) ./vendor/dot/tools/changelog
-  $(hide) mv $(PRODUCT_OUT)/Changelog.txt $(PRODUCT_OUT)/dotOS-P-$(DOT_MOD_VERSION)-$(shell date -u +%Y%m%d-%H%M)-Changelog.txt
+  $(hide) mv $(PRODUCT_OUT)/Changelog.txt $(PRODUCT_OUT)/dotOS-P-$(DOT_MOD_VERSION)-$(CUSTOM_BUILD_DATE)-Changelog.txt
   $(if $(filter true,$(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SUPPORTS_VBOOT)), \
     $(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $(1).unsigned, \
     $(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $(1) --id > $(RECOVERYIMAGE_ID_FILE))
@@ -3058,7 +3058,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
 
-TARGET_PACKAGE := $(PRODUCT_OUT)/dotOS-P-$(DOT_MOD_VERSION)-$(TARGET_DEVICE)-$(DOT_BUILD_TYPE)-$(shell date -u +%Y%m%d).zip
+TARGET_PACKAGE := $(PRODUCT_OUT)/dotOS-P-$(DOT_MOD_VERSION)-$(TARGET_DEVICE)-$(DOT_BUILD_TYPE)-$(CUSTOM_BUILD_DATE).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
