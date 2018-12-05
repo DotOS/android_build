@@ -164,8 +164,9 @@ class EdifyGenerator(object):
            ");")
     self.script.append(self.WordWrap(cmd))
 
-  def RunBackup(self, command):
-    self.script.append(('run_program("/tmp/install/bin/backuptool.sh", "%s");' % command))
+  def RunBackup(self, command, system_path):
+    self.script.append(('run_program("/tmp/install/bin/backuptool.sh", "%s", "%s");' % (
+        command, system_path)))
 
   def RunCleanCache(self):
     self.script.append(('run_program("/system/bin/clean_cache.sh");'))
