@@ -26,6 +26,8 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 - sepgrep:   Greps on all local sepolicy files.
 - sgrep:     Greps on all local source files.
 - godir:     Go to the directory containing a file.
+- mka:       Builds using SCHED_BATCH on all processors
+- reposync:  Parallel repo sync using ionice and SCHED_BATCH
 
 EOF
 
@@ -1633,6 +1635,28 @@ function godir () {
     \cd $T/$pathname
 }
 
+function mka() {
+    case `uname -s` in
+        Darwin)
+            make -j `sysctl hw.ncpu|cut -d" " -f2` "$@"
+            ;;
+        *)
+            mk_timer schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) "$@"
+            ;;
+    esac
+}
+
+function reposync() {
+    case `uname -s` in
+        Darwin)
+            repo sync -j 4 "$@"
+            ;;
+        *)
+            schedtool -B -n 1 -e ionice -n 1 `which repo` sync -j 4 "$@"
+            ;;
+    esac
+}
+
 # Print colored exit condition
 function pez {
     "$@"
@@ -1663,10 +1687,10 @@ function get_make_command()
     fi
 }
 
-function _wrap_build()
+function mk_timer()
 {
     local start_time=$(date +"%s")
-    "$@"
+    $@
     local ret=$?
     local end_time=$(date +"%s")
     local tdiff=$(($end_time-$start_time))
@@ -1704,7 +1728,7 @@ function _wrap_build()
 
 function make()
 {
-    _wrap_build $(get_make_command "$@") "$@"
+    mk_timer $(get_make_command "$@") "$@"
 }
 
 function provision()
