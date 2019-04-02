@@ -827,16 +827,15 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
-  script.Print("***********************************************")
-  script.Print("*    .___          __   ________     _________*")
-  script.Print("*  __| _/  ____  _/  |_ \_____  \   /   _____/*")
-  script.Print("* / __ |  /  _ \ \   __\ /   |   \  \_____  \ *")
-  script.Print("*/ /_/ | (  <_> ) |  |  /    |    \ /        \*")
-  script.Print("*\____ |  \____/  |__|  \_______  //_______  /*")
-  script.Print("*     \/   ***Droid On Time***  \/         \/ *")
-  script.Print("***********************************************")
-  script.Print("***********|*Based On Pure Aosp*|**************")
-  script.Print("***********************************************")
+  script.Print("                                               ")
+  script.Print("      ___          __   ________     _________ ")
+  script.Print("   __| _/  ____  _/  |_ \_____  \   /   _____/ ")
+  script.Print("  / __ |  /  _ \ \   __\ /   |   \  \_____  \  ")
+  script.Print(" / /_/ | (  <_> ) |  |  /    |    \ /        \ ")
+  script.Print(" \____ |  \____/  |__|  \_______  //_______  / ")
+  script.Print("      \/                        \/         \/  ")
+  script.Print("               | Droid On Time |               ")
+  script.Print("                                               ")
   script.AppendExtra("sleep (2);")
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
@@ -866,7 +865,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     androidver = target_info.GetBuildProp("ro.build.version.release")
     manufacturer = target_info.GetBuildProp("ro.product.manufacturer")
     sdkver = target_info.GetBuildProp("ro.build.version.sdk")
-    script.Print(" **************** Software *****************");
+    script.Print(" ---------------- Software -----------------");
     script.Print(" OS version: %s"%(buildid));
     script.Print("");
     script.Print(" Android version: %s"%(androidver));
@@ -880,12 +879,12 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print(" Build ID: %s"%(buildidn));
     script.Print("");
     script.Print(" Build date: %s"%(buildday));
-    script.Print(" **************** Hardware *****************");
+    script.Print(" ---------------- Hardware -----------------");
     script.Print(" Device codename: %s"%(device));
     script.Print("");
     script.Print(" Manufacturer: %s"%(manufacturer));
     script.Print("");
-    script.Print(" *******************************************");
+    script.Print("                                            ");
 
   if OPTIONS.wipe_user_data:
     system_progress -= 0.1
