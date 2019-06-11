@@ -863,10 +863,6 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     if is_system_as_root:
       script.fstab["/system"].mount_point = "/"
 
-  script.Mount("/system")
-  script.RunCleanCache()
-  script.Unmount("/system")
-
   system_progress = 0.75
 
   if target_info.GetBuildProp("ro.dot.display.version") is not None:
