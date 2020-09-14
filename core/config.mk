@@ -119,7 +119,6 @@ $(KATI_obsolete_var \
   ARCH_X86_HAVE_SSSE3 \
 )
 $(KATI_obsolete_var PRODUCT_IOT)
-$(KATI_obsolete_var MD5SUM)
 $(KATI_obsolete_var BOARD_HAL_STATIC_LIBRARIES, See $(CHANGES_URL)#BOARD_HAL_STATIC_LIBRARIES)
 $(KATI_obsolete_var LOCAL_HAL_STATIC_LIBRARIES, See $(CHANGES_URL)#BOARD_HAL_STATIC_LIBRARIES)
 $(KATI_obsolete_var PRODUCT_ARTIFACT_SYSTEM_CERTIFICATE_REQUIREMENT_WHITELIST,Use PRODUCT_ARTIFACT_SYSTEM_CERTIFICATE_REQUIREMENT_ALLOW_LIST.)
@@ -670,6 +669,13 @@ EXTRACT_KERNEL := build/make/tools/extract_kernel.py
 
 # Path to tools.jar
 HOST_JDK_TOOLS_JAR := $(ANDROID_JAVA8_HOME)/lib/tools.jar
+
+# It's called md5 on Mac OS and md5sum on Linux
+ifeq ($(HOST_OS),darwin)
+MD5SUM:=md5 -q
+else
+MD5SUM:=md5sum
+endif
 
 APICHECK_COMMAND := $(JAVA) -Xmx4g -jar $(APICHECK) --no-banner --compatible-output=yes
 
