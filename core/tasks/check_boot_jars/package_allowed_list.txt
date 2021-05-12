@@ -274,3 +274,6 @@ com\.mediatek\.ims.*
 com\.mediatek\.internal\.telecom.*
 com\.mediatek\.dm.*
 com\.mediatek\.android\.mms\.pdu.*
+com\.mediatek\.internal\.telephony.*
+mediatek\.telecom.*
+com\.mediatek\.gwsd.*
