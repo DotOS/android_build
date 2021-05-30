@@ -141,7 +141,11 @@ function check_product()
     if (echo -n $1 | grep -q -e "^dot_") ; then
         DOT_BUILD=$(echo -n $1 | sed -e 's/^dot_//g')
     else
-        DOT_BUILD=
+        if (echo -n $1 | grep -q -e "^aosp_") ; then
+            DOT_BUILD=$(echo -n $1 | sed -e 's/^aosp_//g')
+        else
+            DOT_BUILD=
+        fi
     fi
     export DOT_BUILD
 
