@@ -279,6 +279,10 @@ mediatek\.telecom.*
 com\.mediatek\.gwsd.*
 
 ###################################################
-# Lineage 
+# Lineage
 vendor\.lineage\.touch.*
 vendor\.lineage\.livedisplay.*
+
+###################################################
+# Qcom fmradio
+qcom\.fmradio.*
