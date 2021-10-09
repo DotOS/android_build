@@ -286,3 +286,7 @@ vendor\.lineage\.livedisplay.*
 ###################################################
 # Qcom fmradio
 qcom\.fmradio.*
+
+###################################################
+# Qcom QTI
+com\.qualcomm\.qti.*
